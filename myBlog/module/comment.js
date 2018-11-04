@@ -7,40 +7,33 @@ const connection = mysql.createConnection({
     database: 'feedback'
 })
 
-let user = {}
+module.exports = {
+    query : (req, res) => {
+        let sqlStr = 'select * from comment order by id'
 
+        connection.query(sqlStr, (err, result) => {
+            if (err) res.send('404 is not found')
+            res.render('index.html', {
+                comment: result
+            })
+        })
+    },
 
-user.query = function () {
+    insert : (req, res) => {
+        let sqlStr = 'insert into comment set ?'
+        connection.query(sqlStr, req.body, (err, result) => {
+            if (err) res.send('添加失败:' + err.message)
+            res.send('success')
+        })
+    },
 
-    let sqlStr = 'select * from comment order by id'
+    delete : (req, res) => {
+        let sqlStr = 'delete from comment where id=?'
+        connection.query(sqlStr, req.body.id, (err, result) => {
 
-    connection.query(sqlStr, (err, result) => {
-        if (err) return console.log('查询失败:' + err.message)
-        user.data = result
-    })
+            if (err) res.status('500').send('删除失败:' + err.message)
+            res.send('success')
+        })
+    }
+
 }
-
-// let comment={
-//     user:'xiaoming',
-//     comment:'还有一个'
-// }
-
-user.insert = function (data) {
-    let sqlStr='insert into comment set ?'
-    connection.query(sqlStr,data,(err,result)=>{
-
-        if(err)return console.log('添加失败:'+err.message)
-
-    })
-}
-
-user.delete = function (data) {
-    let sqlStr='delete from comment where id=?'
-    connection.query(sqlStr,data,(err,result)=>{
-
-        if(err)return console.log('删除失败:'+err.message)
-
-    })
-}
-
-module.exports = user
