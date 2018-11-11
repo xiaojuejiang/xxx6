@@ -4,10 +4,15 @@ import Vue from 'vue'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import App from './App'
+import itcast from './components/itcast.vue'
+import itcastPane from './components/itcastPane.vue'
 
 Vue.config.productionTip = false
 
-Vue.use(ElementUI);
+Vue.use(ElementUI)
+
+Vue.component('itcast',itcast)
+Vue.component('itcastPane',itcastPane)
 
 /* eslint-disable no-new */
 new Vue({
