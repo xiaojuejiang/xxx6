@@ -24,7 +24,7 @@
         </a>
       </li>
       <br>
-      <li>
+      <li>                                                                                                                                                                                        
         <a href="http://vuejs-templates.github.io/webpack/" target="_blank">
           Docs for This Template
         </a>
